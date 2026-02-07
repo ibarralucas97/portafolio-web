@@ -22,10 +22,9 @@ projects.forEach(project => {
 
   // CLICK SOLO PARA REPORTE JIRA
   card.addEventListener("click", () => {
-    if (project.title === "Reporte Jira") {
-      openModal(project);
-    }
-  });
+  openModal(project);
+});
+
 
   projectList.appendChild(card);
 });
@@ -34,17 +33,27 @@ projects.forEach(project => {
 // FUNCION CLICK
 
 function openModal(project) {
-  modalTitle.textContent = project.title;
-  modalNeed.textContent = project.need;
-  modalSolution.textContent = project.solution;
-  modalGithub.href = project.github;
+  modalTitle.textContent = project.title || "Proyecto";
+  modalNeed.textContent = project.need || "Detalle en construcción.";
+  modalSolution.textContent = project.solution || "Detalle en construcción.";
+
+  if (project.github) {
+    modalGithub.href = project.github;
+    modalGithub.style.display = "inline";
+  } else {
+    modalGithub.style.display = "none";
+  }
 
   modal.classList.remove("hidden");
 }
 
-closeModal.addEventListener("click", () => {
-  modal.classList.add("hidden");
+
+// CLICK FUERA SACA EL MODAL 
+modal.addEventListener("click", (e) => {
+  if (e.target === modal) {
+    modal.classList.add("hidden");
+  }
 });
- 
+
 
 
