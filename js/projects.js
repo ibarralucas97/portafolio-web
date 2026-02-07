@@ -1,7 +1,10 @@
 const projects = [
   {
     title: "Reporte Jira",
-    description: "App Script - API Jira. Reportes historicos con filtros."
+    description: "App Script - API Jira. Reportes historicos con filtros.",
+    need: "Necesidad de contar con reportes historicos centralizados para medir desempeño del area de soporte.",
+    solution: "Se desarrollo una solucion en Google Apps Script que consume la API de Jira, procesa los datos y genera reportes filtrables.",
+    github: "https://github.com/ibarralucas97/reporte-jira"
   },
   {
     title: "Laboratorios Linux",
