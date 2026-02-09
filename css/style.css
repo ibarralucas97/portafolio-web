@@ -218,17 +218,27 @@ footer {
 
 .modal-content {
   background-color: #0f141b;
-  padding: 30px;
+  padding: 20px;
   border: 1px solid var(--accent-color);
   max-width: 700px;
   width: 90%;
+
+  max-height: 85vh;        /* CLAVE */
+  overflow-y: auto;        /* CLAVE */
 }
 
+
 .modal-close {
+  position: sticky;
+  top: 0;
   float: right;
   cursor: pointer;
   color: var(--accent-color);
+  background-color: #0f141b;
+  padding: 4px 6px;
+  z-index: 10;
 }
+
 
 .hidden {
   display: none;
