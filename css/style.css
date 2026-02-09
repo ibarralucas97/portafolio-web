@@ -15,23 +15,35 @@
 :root {
   --bg-color: #0b0f14;
   --text-color: #e6e6e6;
-  --accent-color: #00ff9c;
+
+  --accent-color: #00ff9c;   /* verde terminal */
+  --section-color: #4da3ff;  /* azul secciones */
+  --stack-color: #ff9f1c;    /* naranja stack */
+  --danger-color: #ff4d4d; /* color rojito */
+
   --muted-color: #9aa4b2;
   --border-color: #1f2933;
   --font-main: "Courier New", Courier, monospace;
 }
+
 
 /* =========================
    BASE GENERAL
    ========================= */
 
 body {
-  background-color: var(--bg-color);
+  background: radial-gradient(
+    circle at top left,
+    #0f141b 0%,
+    #0b0f14 60%
+  );
   color: var(--text-color);
   font-family: var(--font-main);
   line-height: 1.6;
   padding: 40px;
+  padding-left: 120px;
 }
+
 
 /* =========================
    TIPOGRAFÍA
@@ -50,7 +62,9 @@ h1 {
 h2 {
   font-size: 1.4rem;
   margin-top: 40px;
+  color: var(--section-color);
 }
+
 
 h3 {
   font-size: 1.1rem;
@@ -70,12 +84,41 @@ header {
   margin: 0 auto;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 20px;
+
+  position: sticky;
+  top: 0;
+  z-index: 500;
+
+  background-color: #0b0f14; /* ← FONDO REAL */
+  backdrop-filter: blur(6px);
 }
+
+
+#mobile-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+
+  background-color: rgba(15, 20, 27, 0.97);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  z-index: 600;
+}
+
+
+
 
 main {
   max-width: 900px;
   margin: 0 auto;
+  padding-top: 20px;
 }
+
 
 /* =========================
    SECCIONES
@@ -83,7 +126,9 @@ main {
 
 section {
   margin-top: 40px;
+  scroll-margin-top: 120px;
 }
+
 
 
 /* =========================
@@ -139,7 +184,14 @@ footer {
 
 .project-card h3 {
   margin-bottom: 8px;
+  color: var(--text-color);
+  transition: color 0.2s ease;
 }
+
+.project-card:hover h3 {
+  color: var(--accent-color);
+}
+
 
 .project-card p {
   color: var(--muted-color);
@@ -182,6 +234,167 @@ footer {
   display: none;
 }
 
-.modal-content h3 {
-  margin-top: 20px;
+
+/* =========================
+   IMAGENES 
+   ========================= */
+
+.modal-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
 }
+
+.modal-images img {
+  width: 100%;
+  border: 1px solid var(--border-color);
+}
+
+/* =========================
+   STACK 
+   ========================= */
+
+.modal-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.modal-stack span {
+  border: 1px solid var(--stack-color);
+  color: var(--stack-color);
+  padding: 3px 7px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================
+   CURSOR - ESTILO LINUX 
+   ========================= */
+
+.cursor {
+  animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+/* =========================
+   para modal
+   ========================= */
+
+.modal-content h3 {
+  margin-top: 25px;
+  margin-bottom: 8px;
+  color: var(--section-color);
+}
+
+.modal-content p {
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+
+.modal-content a {
+  color: var(--accent-color);
+  text-decoration: none;
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+#modal-title {
+  color: var(--section-color);
+}
+
+
+
+
+
+
+/* Responsive: fuera en mobile */
+@media (max-width: 900px) {
+  #sidebar {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  body {
+    padding-left: 40px;
+  }
+}
+
+
+#menu-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--accent-color);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+#menu-toggle:hover {
+  color: var(--section-color);
+}
+
+#mobile-menu {
+  position: absolute;
+  top: 70px;
+  right: 0;
+
+  background-color: rgba(15, 20, 27, 0.97);
+  border: 1px solid var(--border-color);
+  padding: 16px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  z-index: 900;
+}
+
+#mobile-menu.hidden {
+  display: none;
+}
+
+
+#mobile-menu a {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+#mobile-menu a:hover {
+  color: var(--accent-color);
+}
+
+.menu-separator {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 8px 0;
+}
+
+#mobile-menu .download {
+  color: var(--stack-color);
+}
+
+.layout {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+
+
