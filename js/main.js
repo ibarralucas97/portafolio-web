@@ -1,17 +1,21 @@
+
 // MODAL - referencias
-const modalStack = document.getElementById("modal-stack");
 
+  const modalStack = document.getElementById("modal-stack");
+  const modalImages = document.getElementById("modal-images");
+  const modalurl = document.getElementById("modal-url");
 
-const modalImages = document.getElementById("modal-images");
-const modalDemo = document.getElementById("modal-demo");
+  const modal = document.getElementById("project-modal");
+  const closeModal = document.getElementById("close-modal");
 
-const modal = document.getElementById("project-modal");
-const closeModal = document.getElementById("close-modal");
+  const modalTitle = document.getElementById("modal-title");
+  const modalNeed = document.getElementById("modal-need");
+  const modalSolution = document.getElementById("modal-solution");
+  const modalGithub = document.getElementById("modal-github");
 
-const modalTitle = document.getElementById("modal-title");
-const modalNeed = document.getElementById("modal-need");
-const modalSolution = document.getElementById("modal-solution");
-const modalGithub = document.getElementById("modal-github");
+  const imageViewer = document.getElementById("image-viewer");
+  const imageViewerImg = document.getElementById("image-viewer-img");
+  const imageClose = document.getElementById("image-close");
 
 // LISTA DE PROYECTOS
 const projectList = document.getElementById("project-list");
@@ -58,39 +62,49 @@ if (project.title === "Micronauta Ops") {
     modalGithub.style.display = "none";
   }
 
-  // Demo
-  if (project.demo) {
-    modalDemo.href = project.demo;
-    modalDemo.style.display = "inline";
+  // url
+  if (project.url) {
+    modalurl.href = project.url;
+    modalurl.style.display = "inline";
   } else {
-    modalDemo.style.display = "none";
+    modalurl.style.display = "none";
   }
 
-  // Imágenes
+ // Imágenes
   modalImages.innerHTML = "";
-  if (project.images && project.images.length > 0) {
-    project.images.forEach(src => {
-      const img = document.createElement("img");
-      img.src = src;
-      modalImages.appendChild(img);
-    });
-  }
 
-  modal.classList.remove("hidden");
+ if (project.images && project.images.length > 0) {
+  project.images.forEach((src) => {
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = "Vista previa del proyecto";
+    img.style.cursor = "pointer";
+
+    img.addEventListener("click", (e) => {
+      e.stopPropagation(); // evita cerrar el modal grande
+      imageViewerImg.src = src;
+      imageViewer.classList.remove("hidden");
+    });
+
+    modalImages.appendChild(img);
+  });
+ }
+
 
   // STACK
-modalStack.innerHTML = "";
+ modalStack.innerHTML = "";
 
-if (project.stack && project.stack.length > 0) {
+ if (project.stack && project.stack.length > 0) {
   project.stack.forEach(tech => {
     const tag = document.createElement("span");
     tag.textContent = tech;
     modalStack.appendChild(tag);
   });
-}
+ }
 
-}
 
+ modal.classList.remove("hidden");
+}
 
 
 // CLICK FUERA SACA EL MODAL 
@@ -147,6 +161,16 @@ document.addEventListener("click", (e) => {
 
   if (!clickedInsideMenu && !clickedToggle) {
     mobileMenu.classList.add("hidden");
+  }
+});
+
+imageClose.addEventListener("click", () => {
+  imageViewer.classList.add("hidden");
+});
+
+imageViewer.addEventListener("click", (e) => {
+  if (e.target === imageViewer) {
+    imageViewer.classList.add("hidden");
   }
 });
 
